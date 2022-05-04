@@ -4,8 +4,11 @@
 from urllib import response
 import requests
 
+
 def getWeather(cityName, countryCode):
-    apiKey = "1237eb6e810cf3862b15a8d7f7582700"
+    with open('key.txt') as f:
+        key = f.readline()
+    apiKey = key
     defaultURL = "http://api.openweathermap.org/data/2.5/weather?"
 
     #query open wetaher map api
