@@ -14,6 +14,7 @@ def getWeather(cityName, countryCode):
 
     #process response
     data = response.json()
+    print(data)
 
     if data["cod"] != "404":
         
@@ -31,7 +32,7 @@ def getWeather(cityName, countryCode):
 
         #build descriptor variables
         sys = data['sys']
-        city_name = sys['name']
+        city_name = data['name']
         country_code = sys['country']
 
 
@@ -44,4 +45,6 @@ def getWeather(cityName, countryCode):
 
 
 
-    
+if __name__ == "__main__":
+    print('hi')
+    print(getWeather('Hemel Hempstead','GB'))
