@@ -9,7 +9,7 @@ def getWeather(cityName, countryCode):
     defaultURL = "http://api.openweathermap.org/data/2.5/weather?"
 
     #query open wetaher map api
-    requestURL = defaultURL+"appid="+apiKey+"&q="+cityName+","+countryName
+    requestURL = defaultURL+"appid="+apiKey+"&q="+cityName+","+countryCode
     response = requests.get(requestURL)
 
     #process response
