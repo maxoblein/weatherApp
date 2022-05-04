@@ -68,6 +68,9 @@ class App:
 
         info = getWeather(cityName=city,countryCode=countryCode)
         print(info)
+        if not bool(info):
+            self.goToErrorPage()
+            return
 
         #build result frame
         self.resultFrame = ttk.Frame(self.master)
