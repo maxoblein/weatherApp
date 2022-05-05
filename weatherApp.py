@@ -11,10 +11,11 @@ import pandas as pd
 # Creating App class which will contain
 # Label Widgets
 class App:
-    def __init__(self, master) -> None:
+    def __init__(self, master,gui_style) -> None:
   
         # Instantiating master i.e toplevel Widget
         self.master = master
+        self.style = gui_style
         self.initSearchFrame()
 
         
@@ -22,12 +23,12 @@ class App:
 
     def initSearchFrame(self):
         #Instantiate app frame one
-        self.searchFrame = ttk.Frame(self.master)
+        self.searchFrame = ttk.Frame(self.master,style='My.TFrame')
 
         #intantiating labels
-        self.titleLabel = ttk.Label(self.searchFrame, text="Weather App",font=("Arial", 25))
-        self.cityLabel = ttk.Label(self.searchFrame, text="City",font=("Arial", 20))
-        self.countryLabel = ttk.Label(self.searchFrame, text="Country (code)",font=("Arial", 20))
+        self.titleLabel = ttk.Label(self.searchFrame, text="Weather App",font=("Arial", 25),style='My.TLabel')
+        self.cityLabel = ttk.Label(self.searchFrame, text="City",font=("Arial", 20),style='My.TLabel')
+        self.countryLabel = ttk.Label(self.searchFrame, text="Country (code)",font=("Arial", 20),style='My.TLabel')
 
         #intantiating text entry
         self.textfieldCity = ttk.Entry(self.searchFrame,font=("Arial", 18))
@@ -72,14 +73,14 @@ class App:
             return
 
         #build result frame
-        self.resultFrame = ttk.Frame(self.master)
-        self.resultTitle = ttk.Label(self.resultFrame,text=self.info.get('name')+" , "+self.info.get('country'),font=("Arial", 25))
+        self.resultFrame = ttk.Frame(self.master,style='My.TFrame')
+        self.resultTitle = ttk.Label(self.resultFrame,text=self.info.get('name')+" , "+self.info.get('country'),font=("Arial", 25),style='My.TLabel')
 
         #weather labels
-        self.weatherDescriptionLabel = ttk.Label(self.resultFrame,text="Weather: "+self.info.get('description'),font=("Arial", 20))
-        self.tempLabel = ttk.Label(self.resultFrame,text="Temperature: "+str(self.info.get('temp'))+"C",font=("Arial", 20))
-        self.maxTempLabel = ttk.Label(self.resultFrame,text="Max: "+str(self.info.get('maxTemp'))+"C",font=("Arial", 20))
-        self.minTempLabel = ttk.Label(self.resultFrame,text="Min: "+str(self.info.get('minTemp'))+"C",font=("Arial", 20))
+        self.weatherDescriptionLabel = ttk.Label(self.resultFrame,text="Weather: "+self.info.get('description'),font=("Arial", 20),style='My.TLabel')
+        self.tempLabel = ttk.Label(self.resultFrame,text="Temperature: "+str(self.info.get('temp'))+"C",font=("Arial", 20),style='My.TLabel')
+        self.maxTempLabel = ttk.Label(self.resultFrame,text="Max: "+str(self.info.get('maxTemp'))+"C",font=("Arial", 20),style='My.TLabel')
+        self.minTempLabel = ttk.Label(self.resultFrame,text="Min: "+str(self.info.get('minTemp'))+"C",font=("Arial", 20),style='My.TLabel')
 
         self.resetButton = ttk.Button(self.resultFrame,text="Reset",command=self.reset)
         
@@ -98,10 +99,10 @@ class App:
 
     
     def goToErrorPage(self):
-        self.errorFrame = ttk.Frame(self.master)
+        self.errorFrame = ttk.Frame(self.master,style='My.TFrame')
 
         #error title
-        self.errorTitle = ttk.Label(self.errorFrame,text="Error", font=("Arial", 25))
+        self.errorTitle = ttk.Label(self.errorFrame,text="Error", font=("Arial", 25),style='My.TLabel')
         self.resetButton = ttk.Button(self.errorFrame,text="Reset",command=self.errorReset)
 
         self.errorTitle.pack(pady=15)
@@ -128,12 +129,17 @@ if __name__ == "__main__":
   
     # Setting the title of the window
     root.title("Weather App")
+
+    root.configure(bg='#037bfc')
   
     # Setting the geometry i.e Dimensions
     root.geometry("400x400")
-  
+
+    gui_style = ttk.Style()
+    gui_style.configure('My.TFrame', background='#037bfc')
+    gui_style.configure('My.TLabel', foreground = 'white', background='#037bfc')
     # Calling our App
-    app = App(root)
+    app = App(root,gui_style)
   
     # Mainloop which will cause this toplevel
     # to run infinitely
