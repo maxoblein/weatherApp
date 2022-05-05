@@ -66,9 +66,6 @@ class App:
         city = self.textfieldCity.get()
         countryCode = self.codeCombobox.get()
 
-        print(city)
-        print(countryCode)
-
         self.info = getWeather(cityName=city,countryCode=countryCode)
         if not bool(self.info):
             self.goToErrorPage()
