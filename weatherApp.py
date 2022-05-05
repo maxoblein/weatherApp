@@ -1,5 +1,5 @@
 #create a weather app gui
-from cgitb import reset
+
 from getWeather import getWeather
 from tkinter import *
 from tkinter import ttk
@@ -66,20 +66,29 @@ class App:
         print(city)
         print(countryCode)
 
-        info = getWeather(cityName=city,countryCode=countryCode)
-        print(info)
-        if not bool(info):
+        self.info = getWeather(cityName=city,countryCode=countryCode)
+        if not bool(self.info):
             self.goToErrorPage()
             return
 
         #build result frame
         self.resultFrame = ttk.Frame(self.master)
-        self.resultTitle = ttk.Label(self.resultFrame,text='Result screen',font=("Arial", 25))
+        self.resultTitle = ttk.Label(self.resultFrame,text=self.info.get('name')+" , "+self.info.get('country'),font=("Arial", 25))
+
+        #weather labels
+        self.weatherDescriptionLabel = ttk.Label(self.resultFrame,text="Weather: "+self.info.get('description'),font=("Arial", 20))
+        self.tempLabel = ttk.Label(self.resultFrame,text="Temperature: "+str(self.info.get('temp'))+"C",font=("Arial", 20))
+        self.maxTempLabel = ttk.Label(self.resultFrame,text="Max: "+str(self.info.get('maxTemp'))+"C",font=("Arial", 20))
+        self.minTempLabel = ttk.Label(self.resultFrame,text="Min: "+str(self.info.get('minTemp'))+"C",font=("Arial", 20))
 
         self.resetButton = ttk.Button(self.resultFrame,text="Reset",command=self.reset)
         
         #pack result frame
         self.resultTitle.pack(pady=15)
+        self.weatherDescriptionLabel.pack(pady=15)
+        self.tempLabel.pack(pady=15)
+        self.maxTempLabel.pack(pady=15)
+        self.minTempLabel.pack(pady=15)
         self.resetButton.pack(pady=15)
         
 
