@@ -4,6 +4,8 @@ from getWeather import getWeather
 from tkinter import *
 from tkinter import ttk
 import pandas as pd
+from PIL import Image, ImageTk
+from matplotlib import pyplot as plt
 
 
   
@@ -77,7 +79,15 @@ class App:
         self.resultTitle = ttk.Label(self.resultFrame,text=self.info.get('name')+" , "+self.info.get('country'),font=("Arial", 25),style='My.TLabel')
 
         #weather labels
+        
         self.weatherDescriptionLabel = ttk.Label(self.resultFrame,text="Weather: "+self.info.get('description'),font=("Arial", 20),style='My.TLabel')
+        
+        
+
+        icon_image = ImageTk.PhotoImage(Image.open('weather_icon.png'))
+        
+        self.weatherIconLabel = ttk.Label(self.resultFrame, image = icon_image,style='MyImage.TLabel')
+        
         self.tempLabel = ttk.Label(self.resultFrame,text="Temperature: "+str(self.info.get('temp'))+"C",font=("Arial", 20),style='My.TLabel')
         self.maxTempLabel = ttk.Label(self.resultFrame,text="Max: "+str(self.info.get('maxTemp'))+"C",font=("Arial", 20),style='My.TLabel')
         self.minTempLabel = ttk.Label(self.resultFrame,text="Min: "+str(self.info.get('minTemp'))+"C",font=("Arial", 20),style='My.TLabel')
@@ -85,12 +95,13 @@ class App:
         self.resetButton = ttk.Button(self.resultFrame,text="Reset",command=self.reset)
         
         #pack result frame
-        self.resultTitle.pack(pady=15)
-        self.weatherDescriptionLabel.pack(pady=15)
-        self.tempLabel.pack(pady=15)
-        self.maxTempLabel.pack(pady=15)
-        self.minTempLabel.pack(pady=15)
-        self.resetButton.pack(pady=15)
+        self.resultTitle.pack(pady=10)
+        self.weatherDescriptionLabel.pack(pady=10)
+        self.weatherIconLabel.pack(pady=10)
+        self.tempLabel.pack(pady=10)
+        self.maxTempLabel.pack(pady=10)
+        self.minTempLabel.pack(pady=10)
+        self.resetButton.pack(pady=10)
         
 
         #destroy old frame and switch to new
@@ -133,11 +144,12 @@ if __name__ == "__main__":
     root.configure(bg='#037bfc')
   
     # Setting the geometry i.e Dimensions
-    root.geometry("400x400")
+    root.geometry("400x500")
 
     gui_style = ttk.Style()
     gui_style.configure('My.TFrame', background='#037bfc')
     gui_style.configure('My.TLabel', foreground = 'white', background='#037bfc')
+    gui_style.configure('MyImage.TLabel', background='#037bfc')
     # Calling our App
     app = App(root,gui_style)
   

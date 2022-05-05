@@ -35,13 +35,17 @@ def getWeather(cityName, countryCode):
         weather_description = z[0]["description"]
         weather_icon = z[0]["icon"]
 
+        icon_url =  'http://openweathermap.org/img/wn/'+ weather_icon + '@2x.png'
+        icon = Image.open(requests.get(icon_url,stream=True).raw)
+        icon.save('weather_icon.png')
+
         #build descriptor variables
         sys = data['sys']
         city_name = data['name']
         country_code = sys['country']
 
 
-        info = {'temp':current_temperature, 'maxTemp':maxTemp, 'minTemp':minTemp, 'humidity': humidity, 'description':weather_description, 'name': city_name, 'country':country_code, 'icon':weather_icon}
+        info = {'temp':current_temperature, 'maxTemp':maxTemp, 'minTemp':minTemp, 'humidity': humidity, 'description':weather_description, 'name': city_name, 'country':country_code, 'icon':icon}
 
     else:
         info = {}
